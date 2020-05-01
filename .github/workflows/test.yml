@@ -1,0 +1,28 @@
+name: Notification
+
+on: 
+  push:
+    branches: 
+      - master 
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: craftech-io/slack-action@master
+        with:
+          status: success
+          slack_webhook_url: ${{secrets.SLACK_WEBHOOK_URL}}
+        if: always()
+
+      - uses: craftech-io/slack-action@master
+        with:
+          status: cancelled
+          slack_webhook_url: ${{secrets.SLACK_WEBHOOK_URL}}
+        if: always()
+        
+      - uses: craftech-io/slack-action@master
+        with:
+          status: failure
+          slack_webhook_url: ${{secrets.SLACK_WEBHOOK_URL}}
+        if: always()
+      
