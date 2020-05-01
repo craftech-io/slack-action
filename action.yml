@@ -1,4 +1,4 @@
-name: Slack action
+name: Slack Webhook for GitHub Actions
 description: Send notification to a slack channel about the status of the workflows
 author: Blanca Ayala
 inputs:
@@ -17,6 +17,3 @@ inputs:
 runs:
   using: node12
   main: src/index.js
-branding:
-  color: green
-  icon: message-square
