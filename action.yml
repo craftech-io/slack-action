@@ -1,0 +1,22 @@
+name: Slack action
+description: Send notification to a slack channel about the status of the workflows
+author: Blanca Ayala
+inputs:
+  status:
+    description: 'The result of GitHub Actions job'
+    default: ${{ job.status }}
+  slack_webhook_url:
+    description: 'The Slack Webhook URL'
+    required: true
+  slack_channel:
+    description: 'The channel that receives the message. Override the default incoming Webhook Slack settings'
+    required: false
+  slack_username:
+    description: 'The name that send the message, example: Github. Override the default incoming Webhook Slack settings '
+    required: false
+runs:
+  using: node12
+  main: src/index.js
+branding:
+  color: green
+  icon: message-square
