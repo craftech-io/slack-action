@@ -1,3 +1,5 @@
+![Notification](https://github.com/craftech-io/slack-action/workflows/Notification/badge.svg)
+
 # Slack Action
 
 This action send notification current status of the job. Possible values are success, failure, or cancelled.
@@ -18,7 +20,7 @@ You can customize the following parameters:
 | `SLACK_USERNAME`      | **Optional**      | Override the default incoming Webhook Slack settings 
 
 
-## Example 
+## Usage 
 
 usage with the default incoming Webhook Slack settings, 
 
@@ -42,7 +44,7 @@ jobs:
 ```
 ## Scenarios
 
-You can override the default incoming Webhook Slack settings for the channel and username, also only send notification to slack if the job failure, example: 
+You can override the default incoming Webhook Slack settings for the channel and username, also only send notification to slack if the job failure, I.e: 
 
 Possible values are success, failure, or cancelled.
 
