@@ -2,7 +2,7 @@
 
 # Slack Action
 
-This action send notification current status of the job. Possible values are success, failure, or cancelled.
+This action sends a  notification of the current status of the job. The possible values for the status are: success, failure, or cancelled.
 
 First steps, you need to set GitHub secrets for SLACK_WEBHOOK_URL that is Incoming Webhook URL.
 You can customize the following parameters:
@@ -14,10 +14,10 @@ You can customize the following parameters:
 
 | With Parameter        | Required/Optional | Description |
 | --------------------- | ----------------- | ------------|
-| `SLACK_WEBHOOK_URL`   | **Required**      | Slack Incoming Webhooks URL. <br>[Please specify this key or SLACK_WEBHOOK_URL environment secret](https://help.github.com/es/actions/configuring-and-managing-workflows/creating-and-storing-encrypted-secrets)  
+| `SLACK_WEBHOOK_URL`   | **Required**      | The Slack Incoming Webhooks URL. <br>[Please specify this key or SLACK_WEBHOOK_URL environment secret](https://help.github.com/es/actions/configuring-and-managing-workflows/creating-and-storing-encrypted-secrets)  
 | `STATUS`              | ***Optional***     | The result of GitHub Actions job<br>This parameter value must contain the following word:<br>- `success`<br>- `failure`<br>- `cancelled`<br> default is using ${{ job.status }}
-| `SLACK_CHANNEL`       | **Optional**      | Override the default incoming Webhook Slack settings 
-| `SLACK_USERNAME`      | **Optional**      | Override the default incoming Webhook Slack settings 
+| `SLACK_CHANNEL`       | ***Optional***      | Override the default incoming Webhook Slack settings 
+| `SLACK_USERNAME`      | ***Optional***      | Override the default incoming Webhook Slack settings 
 
 
 ## Usage 
@@ -29,7 +29,7 @@ Create the file `workflow.yml` in `.github/workflows` folder.
 
 ``` yaml
 
-name: Your Workflow
+name: The name of your workflow
 on [push]
 
 jobs:
@@ -44,14 +44,14 @@ jobs:
 ```
 ## Scenarios
 
-You can override the default incoming Webhook Slack settings for the channel and username, also only send notification to slack if the job failure, I.e: 
+You can override the default incoming Webhook Slack settings for the channel and username, also only send notification to slack if the job failure, e.g: 
 
 Possible values are success, failure, or cancelled.
 
 
 ``` yaml
 
-name: Your Workflow
+name: The name of your workflow
 on [push]
 
 jobs:

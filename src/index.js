@@ -33,27 +33,40 @@ function getColor(status) {
     return start_color;
 }
 
+ 
+
 function getText(status) {
+    const token = core.getInput("repoToken");
+    const {owner, repo} = github.context.repo;
+    const actor = github.context.actor;
+    const workflow = github.context.workflow;	
+    const { jobId } = github.context.jobs; 
+    started = `<http://github.com/${actor}|${actor}>` + ' has *started* the "' + `${workflow}`  + '"' + ' workflow ';
+    succeeded = 'The workflow "' + `${workflow}` + '"' + ' was completed *successfully* by ' + `<http://github.com/${actor}|${actor}>`;
+    cancelled = ':warning: The workflow "' + `${workflow}` + '"' + ' was *canceled* by ' + `<http://github.com/${actor}|${actor}>`;
+    failure = '<!here> The workflow "' + `${workflow}` + '"' + ' *failed*';
     
     if (status.toLowerCase() === 'success') {
-        return '*Status deploy:* Succeeded';
+        return succeeded;
     }
     if (status.toLowerCase() === 'cancelled') {
-        return '*Status deploy:* Cancelled';
+        return cancelled;
     }
     
     if (status.toLowerCase() === 'failure') {
-        return '<!here> *Status deploy:* Failed';
+        return failure;
+    }
+    
+    if (status.toLowerCase() === 'started') {
+        return started;
     }
 
-    return '*Starting* deploy';
+    return 'status no valido';
 }
-
 
 function generateSlackMessage(text) {
     const { sha } = github.context;
     const { owner, repo } = github.context.repo;
-    const user = github.context.actor;
     const status = core.getInput("status");
     const channel = core.getInput("slack_channel");
     const username = core.getInput("slack_username");
@@ -67,15 +80,12 @@ function generateSlackMessage(text) {
             {
                 fallback: text,
                 color: getColor(status),
-                author_name: `${user}`,
-                author_link: `http://github.com/${user}`,
-                author_icon: `http://github.com/${user}.png?size=32`,
                 footer: `<https://craftech.io|Powered By Craftech>`,
                 footer_icon: `https://craftech.io/mail-signature/craftech-logo.png`,
                 ts: Math.floor(Date.now() / 1000),
                 "fields": [
                     {
-                        "title": "Repositorio",
+                        "title": "Repository",
                         "value": `<https://github.com/${owner}/${repo}|${owner}/${repo}>`,
                         "short": true
                     },      
@@ -95,7 +105,6 @@ function generateSlackMessage(text) {
                     {
                        "type": "button",
                        "text": "Action Tab",
-                       "style": "primary",
                        "url": `https://github.com/${owner}/${repo}/commit/${sha}/checks` 
                     }                
                 ]               
