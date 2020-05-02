@@ -40,7 +40,6 @@ function getText(status) {
     const {owner, repo} = github.context.repo;
     const actor = github.context.actor;
     const workflow = github.context.workflow;	
-    const { jobId } = github.context.jobs; 
     started = `<http://github.com/${actor}|${actor}>` + ' has *started* the "' + `${workflow}`  + '"' + ' workflow ';
     succeeded = 'The workflow "' + `${workflow}` + '"' + ' was completed *successfully* by ' + `<http://github.com/${actor}|${actor}>`;
     cancelled = ':warning: The workflow "' + `${workflow}` + '"' + ' was *canceled* by ' + `<http://github.com/${actor}|${actor}>`;
