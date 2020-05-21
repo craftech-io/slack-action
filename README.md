@@ -1,4 +1,5 @@
 ![Notification](https://github.com/craftech-io/slack-action/workflows/Notification/badge.svg)
+[![MIT license](https://img.shields.io/badge/License-MIT-blue.svg)](https://lbesson.mit-license.org/)
 
 # Slack Action
 
@@ -14,7 +15,7 @@ You can customize the following parameters:
 
 | With Parameter        | Required/Optional | Description |
 | --------------------- | ----------------- | ------------|
-| `SLACK_WEBHOOK_URL`   | **Required**      | The Slack Incoming Webhooks URL. <br>[Please specify this key or SLACK_WEBHOOK_URL environment secret](https://help.github.com/es/actions/configuring-and-managing-workflows/creating-and-storing-encrypted-secrets)  
+| `SLACK_WEBHOOK_URL`   | **Required**      | The Slack Incoming Webhooks URL. <br>Please specify the  [environment secret](https://help.github.com/es/actions/configuring-and-managing-workflows/creating-and-storing-encrypted-secrets) for SLACK_WEBHOOK_URL
 | `STATUS`              | ***Optional***     | The result of GitHub Actions job<br>This parameter value must contain the following word:<br>- `success`<br>- `failure`<br>- `cancelled`<br> default is using ${{ job.status }}
 | `SLACK_CHANNEL`       | ***Optional***      | Override the default incoming Webhook Slack settings 
 | `SLACK_USERNAME`      | ***Optional***      | Override the default incoming Webhook Slack settings 
