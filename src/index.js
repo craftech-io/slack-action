@@ -7,7 +7,6 @@ const sucess_color = '#00C0C7';
 const cancelled_color = '#FFA900';
 const failure_color = '#FF614E';
 
-
 function post(slackMessage) {
     const slack_webhook_url = core.getInput("slack_webhook_url");
     fetch(slack_webhook_url, {
@@ -15,7 +14,18 @@ function post(slackMessage) {
         body: JSON.stringify(slackMessage),
         headers: { 'Content-Type': 'application/json' },
     }).catch(console.error);
-}
+    
+    if (!core.getInput("slack_webhook_url")) {
+     try {   
+       throw new Error(`[Error] Missing Slack Incoming Webhooks URL
+           Please configure "SLACK_WEBHOOK" as environment variable or
+           specify the key called "slack_webhook_url" in "with" section`);
+       } 
+       catch (error) {	
+           console.error(error.message);	
+       }
+    } 
+ }
 
 function getColor(status) {
     
@@ -25,19 +35,13 @@ function getColor(status) {
     if (status.toLowerCase() === 'cancelled') {
         return cancelled_color;
     }
-    
     if (status.toLowerCase() === 'failure') {
         return failure_color;
     }
-
     return start_color;
 }
 
- 
-
 function getText(status) {
-    const token = core.getInput("repoToken");
-    const {owner, repo} = github.context.repo;
     const actor = github.context.actor;
     const workflow = github.context.workflow;	
     started = `<http://github.com/${actor}|${actor}>` + ' has *started* the "' + `${workflow}`  + '"' + ' workflow ';
@@ -51,15 +55,12 @@ function getText(status) {
     if (status.toLowerCase() === 'cancelled') {
         return cancelled;
     }
-    
     if (status.toLowerCase() === 'failure') {
         return failure;
     }
-    
     if (status.toLowerCase() === 'started') {
         return started;
     }
-
     return 'status no valido';
 }
 
@@ -69,8 +70,6 @@ function generateSlackMessage(text) {
     const status = core.getInput("status");
     const channel = core.getInput("slack_channel");
     const username = core.getInput("slack_username");
-    const workflow = github.context.workflow;	
-
     return {
         channel,
         username,
@@ -92,7 +91,6 @@ function generateSlackMessage(text) {
                         "title": "Ref",
                         "value": github.context.ref,
                         "short": true
-
                     },                   
                 ],
                 "actions": [ 
@@ -111,9 +109,8 @@ function generateSlackMessage(text) {
         ]
     };
 }
-
 try {
-    post(generateSlackMessage(' '));
+    post(generateSlackMessage('Sending message'));
 } catch (error) {
-    core.setFailed(error.message);
-}
+  core.setFailed(`[Error] There was an error when sending the slack notification`);
+} 
