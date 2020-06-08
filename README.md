@@ -1,5 +1,6 @@
 ![Notification](https://github.com/craftech-io/slack-action/workflows/Notification/badge.svg)
 [![MIT license](https://img.shields.io/badge/License-MIT-blue.svg)](https://lbesson.mit-license.org/)
+[![Maintained by Craftech.io](https://img.shields.io/badge/maintained%20by-craftech.io-%2254BEC5.svg?color=54BEC5)](https://craftech.io/?ref=terraform-aws-route53)
 
 # Slack Action
 
@@ -15,10 +16,10 @@ You can customize the following parameters:
 
 | With Parameter        | Required/Optional | Description |
 | --------------------- | ----------------- | ------------|
-| `SLACK_WEBHOOK_URL`   | **Required**      | The Slack Incoming Webhooks URL. <br>Please specify the  [environment secret](https://help.github.com/es/actions/configuring-and-managing-workflows/creating-and-storing-encrypted-secrets) for SLACK_WEBHOOK_URL
-| `STATUS`              | ***Optional***     | The result of GitHub Actions job<br>This parameter value must contain the following word:<br>- `success`<br>- `failure`<br>- `cancelled`<br> default is using ${{ job.status }}
-| `SLACK_CHANNEL`       | ***Optional***      | Override the default incoming Webhook Slack settings 
-| `SLACK_USERNAME`      | ***Optional***      | Override the default incoming Webhook Slack settings 
+| `slack_webhook_url`   | **Required**      | The Slack Incoming Webhooks URL. <br>Please specify the  [environment secret](https://help.github.com/es/actions/configuring-and-managing-workflows/creating-and-storing-encrypted-secrets) for SLACK_WEBHOOK_URL
+| `status`              | ***Optional***     | The result of GitHub Actions job<br>This parameter value must contain the following word:<br>- `success`<br>- `failure`<br>- `cancelled`<br> default is using `${{ job.status }}`
+| `slack_channel`       | ***Optional***      | Override the default incoming Webhook Slack settings 
+| `slack_username`      | ***Optional***      | Override the default incoming Webhook Slack settings 
 
 
 ## Usage 
@@ -27,9 +28,7 @@ usage with the default incoming Webhook Slack settings,
 
 Create the file `workflow.yml` in `.github/workflows` folder. 
 
-
 ``` yaml
-
 name: The name of your workflow
 on [push]
 
@@ -39,7 +38,7 @@ jobs:
     steps:
       - uses: craftech-io/slack-action@v1
         with:
-          slack_webhook_url: ${{secrets.SLACK_WEBHOOK_URL}}
+          slack_webhook_url: ${{ secrets.SLACK_WEBHOOK_URL }}
         if: always()
   
 ```
@@ -61,7 +60,7 @@ jobs:
     steps:
       - uses: craftech-io/slack-action@v1
         with:
-          slack_webhook_url: ${{secrets.SLACK_WEBHOOK_URL}}
+          slack_webhook_url: ${{ secrets.SLACK_WEBHOOK_URL }}
           slack_channel: general
           slack_username: Github
           status: failure
